@@ -82,21 +82,19 @@ Business:
 	fmt.Println("balance with interest = ", balance)
 }
 
-
 //func to transfer money to another entityType
-func (account1 *account)transferMoney(){
+func (account1 *account) transferMoney() {
 	var ans string
 	var ans1 float64
 	//ask client which account he wants to transfer from
 	fmt.Println("Which account you want to transfer ?")
 	fmt.Scanln(&ans)
 
-	if ans == account1.accType{
+	if ans == account1.accType {
 		//ask client how much he wants to transfer
 		fmt.Println("How much do you want to transfer?")
 		fmt.Scanln(&ans1)
 		account1.balance -= ans1
-		account. += ans1 
 
 	}
 }
@@ -147,7 +145,6 @@ firstChoice:
 	default:
 		fmt.Println("Error")
 	}
-break
 
 	// code calling the function applyInterest
 secondChoice:
