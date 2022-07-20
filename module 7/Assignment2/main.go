@@ -5,10 +5,15 @@ Sentence(up to full stop) to another go routine/routines
 
 package main
 
+
 func main(){
-	paragraph := [] string {"Debbie knew she was being selfish and unreasonable.","She understood why the others in the room were angry and frustrated with her and
+	paragraph := `Debbie knew she was being selfish and unreasonable.She understood why the others in the room were angry and frustrated with her and
 				 the way she was acting. In her eyes, it didn't really matter how they felt because 
-				 she simply didn't care."}
+				 she simply didn't care.`
+
+				   
+
+	
 
 
 }
