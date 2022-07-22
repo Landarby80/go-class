@@ -14,31 +14,47 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
-var wg sync.WaitGroup
+var (
+	group   sync.WaitGroup
+	channel chan string
+)
+
+func Forword() {
+	for i := 0; i <= 100; i++ {
+		channel <- fmt.Sprintf("Forword i=%v", i) // send message
+		time.Sleep(time.Millisecond)
+	}
+
+	fmt.Println("Forword finish its task ")
+	group.Done()
+}
+
+//Printng both the values
+func Reverse() {
+	for i := 100; i >= 0; i-- {
+		if s, ok := <-channel; ok { // receive message
+			fmt.Println(s) //Print the value of Forword
+
+			fmt.Printf("   Reverse i=%v\n", i) // Print the value of Reverse
+			time.Sleep(time.Millisecond)
+		}
+	}
+
+	fmt.Println(" Reverse finished task")
+	group.Done()
+}
 
 func main() {
-
-	wg.Add(2)
-	// c := make(chan in)
-
-	go func() {
-		for i := 100; i >= 0; i-- {
-			fmt.Println("dec ", i)
-		}
-		wg.Done()
-	}()
-
-	go func() {
-		for i := 0; i <= 100; i++ {
-			fmt.Println("inc ", i)
-		}
-		wg.Done()
-	}()
-
-	wg.Wait()
-
-	fmt.Println("Done")
-
+	channel = make(chan string)
+	group.Add(2)
+	go Forword()
+	go Reverse()
+	group.Wait()
+	close(channel) // close it so nothing is waiting
+	for s := range channel {
+		fmt.Println(s)
+	}
 }
