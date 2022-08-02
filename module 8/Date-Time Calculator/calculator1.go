@@ -19,11 +19,14 @@ import (
 )
 
 func main() {
-	var date time.Time
-	var t string
-	fmt.Println("Enter a date:")
-	fmt.Scanln(&t)
-	date, _ = time.Parse("2000-02-25", t)
-	fmt.Println(date)
+	// display current time
+	now := time.Now()
+	fmt.Println("Current date and time:", now)
+	// var date string
+
+	// create custom time
+	customTime := time.Date(
+		2025, 05, 15, 15, 20, 00, 0, time.Local)
+	fmt.Println("Custom date and time:", customTime)
 
 }

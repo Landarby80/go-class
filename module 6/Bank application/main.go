@@ -62,11 +62,11 @@ func (account1 *account) applyInterest(balance float64) {
 Individual:
 	switch account1.accType {
 	case "cheking":
-		balance *= 1.01 // NOTE: these interest rate calculations could be simplified to balance *= 1.01
+		balance *= 1.01
 	case "investment":
-		balance *= 1.02 // NOTE: balance *= 1.02
+		balance *= 1.02
 	case "saving":
-		balance *= 1.05 // NOTE: balance *= 1.05
+		balance *= 1.05
 	}
 	// calculate interest for business
 Business:
@@ -96,21 +96,21 @@ func (account1 *account) transferMoney() {
 		fmt.Scanln(&ans1)
 		account1.balance -= ans1
 
+	} else {
+		account1.balance += ans1
 	}
+
+	fmt.Println("Your balance is now: $", account1.balance)
 }
 
 func main() {
-	// NOTE: Here is a simple way of initializing a wallet.
+
 	entity1 := entity{98765, "189 bolock street", "individual"}
 	account1 := account{123458, entity1, 1400.50, 0.1, "cheking"}
 	wallet1 := wallet{"Luke Wagner", []account{account1}, entity1}
 
-	// NOTE: We could also use pointers to store entity references in accounts, but this is fine.
 	wallet1.accounts = append(wallet1.accounts, account{12345, entity1, 1500.00, 0.1, "saving"})
 	fmt.Printf("%+v\n", wallet1.accounts)
-
-	// NOTE: It looks like you're trying to make the banking terminal challenge.
-	// You will probably need a loop to repeatedly ask the user what actions they want to perform.
 
 	a := &account1
 	var ans string
@@ -120,6 +120,7 @@ func main() {
 	    type:
 	    (1) To withdraw or deposit
 	    (2) To apply interest
+		(3) Transfer money
 	    `
 	fmt.Println(message)
 	fmt.Scanln(&choice)
@@ -128,6 +129,8 @@ func main() {
 		goto firstChoice
 	case 2:
 		goto secondChoice
+	case 3:
+		goto thirdChoice
 	default:
 		fmt.Println("Error")
 	}
@@ -149,6 +152,9 @@ firstChoice:
 	// code calling the function applyInterest
 secondChoice:
 	a.applyInterest(a.balance)
+
+thirdChoice:
+	a.transferMoney()
 
 	fmt.Println(a.balance)
 }
