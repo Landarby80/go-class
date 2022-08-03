@@ -7,6 +7,7 @@ type Pool struct {
 	Unregister chan *Client
 	Clients    map[*Client]bool
 	Broadcast  chan Message
+	Rooms      map[*Room]bool
 }
 
 func NewPool() *Pool {
@@ -15,6 +16,7 @@ func NewPool() *Pool {
 		Unregister: make(chan *Client),
 		Clients:    make(map[*Client]bool),
 		Broadcast:  make(chan Message),
+		Rooms:      make(map[*Room]bool),
 	}
 }
 
@@ -51,4 +53,13 @@ func (pool *Pool) Start() {
 			}
 		}
 	}
+}
+
+//func to create new room
+func (server *Pool) createRoom(name string, private bool) *Room {
+	room := NewRoom(name)
+	go room.Start()
+	server.Rooms[room] = true
+
+	return room
 }

@@ -5,15 +5,17 @@ import (
 	"log"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )
 
 type Client struct {
-	ID string
-
-	Conn *websocket.Conn
-	Pool *Pool
-	mu   sync.Mutex
+	ID    uuid.UUID `json:"id"`
+	Name  string    `json:"name"`
+	Conn  *websocket.Conn
+	Pool  *Pool
+	Rooms map[*Room]bool
+	mu    sync.Mutex
 }
 
 // type Username struct {

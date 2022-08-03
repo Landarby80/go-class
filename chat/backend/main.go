@@ -20,6 +20,7 @@ func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 	}
 
 	pool.Register <- client
+
 	client.Read()
 }
 
