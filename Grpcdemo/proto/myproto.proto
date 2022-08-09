@@ -1,0 +1,10 @@
+syntax = "proto3";
+package proto;
+option go_package ="../proto";    // Added code
+
+message People{
+  int32 weight = 1;
+}
+message Student{
+  string name = 2;
+}
